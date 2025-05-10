@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-b from-blue-500 to-purple-600 flex items-center justify-center p-4">
+    <div class="bg-white rounded-lg shadow-xl p-8 max-w-md w-full">
+        <h1 class="text-4xl font-bold text-gray-800 mb-4">X-Frame-Options Demo</h1>
+        <div class="space-y-4">
+            <div class="bg-gray-50 p-4 rounded-md">
+                <h2 class="text-lg font-semibold text-gray-700">Security Headers:</h2>
+                <div class="mt-4 space-y-2">
+                    <div>
+                        <h3 class="text-sm font-semibold text-gray-700">Mode:</h3>
+                        <p id="mode" class="text-gray-600 text-sm break-all font-mono bg-gray-100 p-2 rounded">
+                            Loading...
+                        </p>
+                    </div>
+                    <div id="csp-section" class="hidden">
+                        <h3 class="text-sm font-semibold text-gray-700">Content-Security-Policy:</h3>
+                        <p id="csp" class="text-gray-600 text-sm break-all font-mono bg-gray-100 p-2 rounded">
+                            Loading...
+                        </p>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-semibold text-gray-700">Description:</h3>
+                        <p id="description" class="text-gray-600 text-sm break-all">
+                            Loading...
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get the current mode and CSP from the URL
+        const mode = window.location.pathname.split('/').pop();
+        const urlParams = new URLSearchParams(window.location.search);
+        const csp = urlParams.get('csp');
+        
+        const modeElement = document.getElementById('mode');
+        const descElement = document.getElementById('description');
+        const cspSection = document.getElementById('csp-section');
+        const cspElement = document.getElementById('csp');
+
+        // Show CSP section if CSP is set
+        if (csp) {
+            cspSection.classList.remove('hidden');
+            cspElement.textContent = csp;
+        }
+
+        // Update content based on mode
+        switch(mode) {
+            case 'sameorigin':
+                modeElement.textContent = 'SAMEORIGIN';
+                modeElement.classList.add('text-blue-600');
+                descElement.textContent = 'This page can only be embedded in frames from the same origin';
+                break;
+            case 'deny':
+                modeElement.textContent = 'DENY';
+                modeElement.classList.add('text-red-600');
+                descElement.textContent = 'This page cannot be embedded in any frames';
+                break;
+            case 'allow':
+                modeElement.textContent = 'ALLOW';
+                modeElement.classList.add('text-green-600');
+                descElement.textContent = 'This page can be embedded in frames from any origin';
+                break;
+            case 'none':
+                modeElement.textContent = 'NO HEADER';
+                modeElement.classList.add('text-purple-600');
+                descElement.textContent = csp 
+                    ? 'Custom Content-Security-Policy is set'
+                    : 'No security headers are set (default browser behavior)';
+                break;
+        }
+    </script>
+</body>
+</html> 

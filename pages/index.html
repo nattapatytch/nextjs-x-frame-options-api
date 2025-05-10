@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>X-Frame-Options Demo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-b from-blue-500 to-purple-600 p-8">
+    <div class="max-w-6xl mx-auto">
+        <h1 class="text-4xl font-bold text-white mb-8 text-center">X-Frame-Options Demo</h1>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="bg-white rounded-lg shadow-xl p-6">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-2">SAMEORIGIN Mode</h2>
+                <p class="text-gray-600 mb-4">Only allows framing from same origin</p>
+                <div class="bg-gray-50 rounded-lg p-4 mb-4">
+                    <iframe src="/api/sameorigin" class="w-full h-[300px] border-2 border-gray-200 rounded-lg"></iframe>
+                </div>
+                <div id="sameorigin-status" class="text-sm p-3 rounded-md bg-gray-100"></div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-xl p-6">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-2">DENY Mode</h2>
+                <p class="text-gray-600 mb-4">Prevents any framing</p>
+                <div class="bg-gray-50 rounded-lg p-4 mb-4">
+                    <iframe src="/api/deny" class="w-full h-[300px] border-2 border-gray-200 rounded-lg"></iframe>
+                </div>
+                <div id="deny-status" class="text-sm p-3 rounded-md bg-gray-100"></div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-xl p-6">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-2">ALLOW Mode</h2>
+                <p class="text-gray-600 mb-4">Allows framing from any origin</p>
+                <div class="bg-gray-50 rounded-lg p-4 mb-4">
+                    <iframe src="/api/allow" class="w-full h-[300px] border-2 border-gray-200 rounded-lg"></iframe>
+                </div>
+                <div id="allow-status" class="text-sm p-3 rounded-md bg-gray-100"></div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-xl p-6">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-2">NO HEADER Mode</h2>
+                <p class="text-gray-600 mb-4">No X-Frame-Options header set</p>
+                <div class="bg-gray-50 rounded-lg p-4 mb-4">
+                    <iframe src="/api/none" class="w-full h-[300px] border-2 border-gray-200 rounded-lg"></iframe>
+                </div>
+                <div id="none-status" class="text-sm p-3 rounded-md bg-gray-100"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function checkIframeStatus(iframe, statusElement) {
+            try {
+                const iframeContent = iframe.contentWindow || iframe.contentDocument;
+                statusElement.classList.add('bg-green-50', 'text-green-700');
+                statusElement.textContent = 'Status: Frame loaded successfully';
+            } catch (e) {
+                statusElement.classList.add('bg-red-50', 'text-red-700');
+                statusElement.textContent = 'Status: Frame blocked by X-Frame-Options';
+            }
+        }
+
+        document.querySelectorAll('iframe').forEach(iframe => {
+            const statusId = iframe.src.split('/').pop() + '-status';
+            const statusElement = document.getElementById(statusId);
+            
+            iframe.onload = () => checkIframeStatus(iframe, statusElement);
+            iframe.onerror = () => {
+                statusElement.classList.add('bg-red-50', 'text-red-700');
+                statusElement.textContent = 'Status: Failed to load frame';
+            };
+        });
+    </script>
+</body>
+</html> 
