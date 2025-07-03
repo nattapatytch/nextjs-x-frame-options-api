@@ -23,7 +23,15 @@ export default function Home() {
 
       <div className="max-w-4xl mx-auto">
         <div className="bg-white rounded-lg shadow-xl p-8">
-          <h1 className="text-4xl font-bold text-gray-800 mb-4">X-Frame-Options API Documentation</h1>
+          <div className="flex items-center justify-between mb-6">
+            <h1 className="text-4xl font-bold text-gray-800">X-Frame-Options API Documentation</h1>
+            <a
+              href="/demo"
+              className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-semibold"
+            >
+              🧪 Try Demo
+            </a>
+          </div>
           <p className="text-gray-600 mb-8">API for testing X-Frame-Options and Content Security Policy (CSP)</p>
 
           {/* API Endpoints */}
@@ -112,6 +120,33 @@ export default function Home() {
                     <div className="bg-gray-100 p-3 rounded">
                       <pre className="font-mono text-sm whitespace-pre-wrap break-all">
                         {baseUrl || 'Loading...'}/api/allow
+                      </pre>
+                    </div>
+                  </div>
+
+                  <div>
+                    <p className="text-gray-700 font-medium mb-1">With specific URLs (before encode):</p>
+                    <div className="bg-gray-100 p-3 rounded overflow-x-auto">
+                      <pre className="font-mono text-sm whitespace-pre-wrap break-all">
+                        {baseUrl || 'Loading...'}/api/allow?urls=http://localhost:3000,https://example.com
+                      </pre>
+                    </div>
+                  </div>
+
+                  <div>
+                    <p className="text-gray-700 font-medium mb-1">With specific URLs (after encode):</p>
+                    <div className="bg-gray-100 p-3 rounded overflow-x-auto">
+                      <pre className="font-mono text-sm whitespace-pre-wrap break-all">
+                        {baseUrl || 'Loading...'}/api/allow?urls=http%3A//localhost%3A3000%2Chttps%3A//example.com
+                      </pre>
+                    </div>
+                  </div>
+
+                  <div>
+                    <p className="text-gray-700 font-medium mb-1">Single URL:</p>
+                    <div className="bg-gray-100 p-3 rounded overflow-x-auto">
+                      <pre className="font-mono text-sm whitespace-pre-wrap break-all">
+                        {baseUrl || 'Loading...'}/api/allow?urls=https://example.com
                       </pre>
                     </div>
                   </div>
