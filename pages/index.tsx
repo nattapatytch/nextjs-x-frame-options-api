@@ -1,6 +1,17 @@
 import Head from 'next/head'
+import { useState, useEffect } from 'react'
 
 export default function Home() {
+  const [baseUrl, setBaseUrl] = useState('')
+
+  useEffect(() => {
+    // Get the current domain and port dynamically
+    const protocol = window.location.protocol
+    const host = window.location.host
+    const currentBaseUrl = `${protocol}//${host}`
+    setBaseUrl(currentBaseUrl)
+  }, [])
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-500 to-purple-600 p-8">
       <Head>
@@ -30,7 +41,7 @@ export default function Home() {
                     <p className="text-gray-700 font-medium mb-1">Basic usage:</p>
                     <div className="bg-gray-100 p-3 rounded">
                       <pre className="font-mono text-sm whitespace-pre-wrap break-all">
-                        http://localhost:3000/api/sameorigin
+                        {baseUrl || 'Loading...'}/api/sameorigin
                       </pre>
                     </div>
                   </div>
@@ -39,7 +50,7 @@ export default function Home() {
                     <p className="text-gray-700 font-medium mb-1">With default-src 'self' (before encode):</p>
                     <div className="bg-gray-100 p-3 rounded overflow-x-auto">
                       <pre className="font-mono text-sm whitespace-pre-wrap break-all">
-                        http://localhost:3000/api/sameorigin?csp=default-src 'self'
+                        {baseUrl || 'Loading...'}/api/sameorigin?csp=default-src 'self'
                       </pre>
                     </div>
                   </div>
@@ -48,7 +59,7 @@ export default function Home() {
                     <p className="text-gray-700 font-medium mb-1">With default-src 'self' (after encode):</p>
                     <div className="bg-gray-100 p-3 rounded overflow-x-auto">
                       <pre className="font-mono text-sm whitespace-pre-wrap break-all">
-                        http://localhost:3000/api/sameorigin?csp=default-src%20'self'
+                        {baseUrl || 'Loading...'}/api/sameorigin?csp=default-src%20'self'
                       </pre>
                     </div>
                   </div>
@@ -65,7 +76,7 @@ export default function Home() {
                     <p className="text-gray-700 font-medium mb-1">Basic usage:</p>
                     <div className="bg-gray-100 p-3 rounded">
                       <pre className="font-mono text-sm whitespace-pre-wrap break-all">
-                        http://localhost:3000/api/deny
+                        {baseUrl || 'Loading...'}/api/deny
                       </pre>
                     </div>
                   </div>
@@ -74,7 +85,7 @@ export default function Home() {
                     <p className="text-gray-700 font-medium mb-1">With default-src 'self' (before encode):</p>
                     <div className="bg-gray-100 p-3 rounded overflow-x-auto">
                       <pre className="font-mono text-sm whitespace-pre-wrap break-all">
-                        http://localhost:3000/api/deny?csp=default-src 'self'
+                        {baseUrl || 'Loading...'}/api/deny?csp=default-src 'self'
                       </pre>
                     </div>
                   </div>
@@ -83,7 +94,7 @@ export default function Home() {
                     <p className="text-gray-700 font-medium mb-1">With default-src 'self' (after encode):</p>
                     <div className="bg-gray-100 p-3 rounded overflow-x-auto">
                       <pre className="font-mono text-sm whitespace-pre-wrap break-all">
-                        http://localhost:3000/api/deny?csp=default-src%20'self'
+                        {baseUrl || 'Loading...'}/api/deny?csp=default-src%20'self'
                       </pre>
                     </div>
                   </div>
@@ -100,7 +111,7 @@ export default function Home() {
                     <p className="text-gray-700 font-medium mb-1">Basic usage:</p>
                     <div className="bg-gray-100 p-3 rounded">
                       <pre className="font-mono text-sm whitespace-pre-wrap break-all">
-                        http://localhost:3000/api/allow
+                        {baseUrl || 'Loading...'}/api/allow
                       </pre>
                     </div>
                   </div>
@@ -109,7 +120,7 @@ export default function Home() {
                     <p className="text-gray-700 font-medium mb-1">With default-src 'self' (before encode):</p>
                     <div className="bg-gray-100 p-3 rounded overflow-x-auto">
                       <pre className="font-mono text-sm whitespace-pre-wrap break-all">
-                        http://localhost:3000/api/allow?csp=default-src 'self'
+                        {baseUrl || 'Loading...'}/api/allow?csp=default-src 'self'
                       </pre>
                     </div>
                   </div>
@@ -118,7 +129,7 @@ export default function Home() {
                     <p className="text-gray-700 font-medium mb-1">With default-src 'self' (after encode):</p>
                     <div className="bg-gray-100 p-3 rounded overflow-x-auto">
                       <pre className="font-mono text-sm whitespace-pre-wrap break-all">
-                        http://localhost:3000/api/allow?csp=default-src%20'self'
+                        {baseUrl || 'Loading...'}/api/allow?csp=default-src%20'self'
                       </pre>
                     </div>
                   </div>
@@ -135,7 +146,7 @@ export default function Home() {
                     <p className="text-gray-700 font-medium mb-1">Basic usage:</p>
                     <div className="bg-gray-100 p-3 rounded">
                       <pre className="font-mono text-sm whitespace-pre-wrap break-all">
-                        http://localhost:3000/api/none
+                        {baseUrl || 'Loading...'}/api/none
                       </pre>
                     </div>
                   </div>
@@ -144,7 +155,7 @@ export default function Home() {
                     <p className="text-gray-700 font-medium mb-1">With default-src 'self' (before encode):</p>
                     <div className="bg-gray-100 p-3 rounded overflow-x-auto">
                       <pre className="font-mono text-sm whitespace-pre-wrap break-all">
-                        http://localhost:3000/api/none?csp=default-src 'self'
+                        {baseUrl || 'Loading...'}/api/none?csp=default-src 'self'
                       </pre>
                     </div>
                   </div>
@@ -153,7 +164,7 @@ export default function Home() {
                     <p className="text-gray-700 font-medium mb-1">With default-src 'self' (after encode):</p>
                     <div className="bg-gray-100 p-3 rounded overflow-x-auto">
                       <pre className="font-mono text-sm whitespace-pre-wrap break-all">
-                        http://localhost:3000/api/none?csp=default-src%20'self'
+                        {baseUrl || 'Loading...'}/api/none?csp=default-src%20'self'
                       </pre>
                     </div>
                   </div>
