@@ -138,7 +138,7 @@ export default function Demo() {
             )}
 
             {/* URL Input */}
-            {/* <div className="bg-blue-50 rounded-lg p-4">
+            <div className="bg-blue-50 rounded-lg p-4">
               <h2 className="text-xl font-semibold text-blue-800 mb-2">Target URL</h2>
               <div className="flex items-center space-x-2">
                 <input
@@ -163,9 +163,9 @@ export default function Demo() {
                 </button>
               </div>
               <p className="text-blue-600 mt-2 text-sm">
-                Current page URL: {isClient ? window.location.href : 'Loading...'}
+                Current page URL: {isClient ? decodeURIComponent(window.location.href) : 'Loading...'}
               </p>
-            </div> */}
+            </div>
 
             {/* Iframe Demo */}
             <div className="bg-gray-50 rounded-lg p-6">
